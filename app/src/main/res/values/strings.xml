@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Lighthouse</string>
+    <string name="sea_mark_tolbuhin">Толбухин маяк</string>
+    <string name="sea_mark_bernati">Bernāti Lighthouse</string>
 </resources>

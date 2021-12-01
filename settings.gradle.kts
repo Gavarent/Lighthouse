@@ -24,6 +24,8 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             version("compose", "1.0.1")
+            version("accompanistVersion", "0.21.3-beta")
+            version("koinVersion", "3.1.4")
 
             alias("androidx-core")
                 .to("androidx.core", "core-ktx").version("1.6.0")
@@ -53,10 +55,54 @@ dependencyResolutionManagement {
             alias("androidx.compose.ui-tooling")
                 .to("androidx.compose.ui", "ui-tooling").versionRef("compose")
 
+            alias("accompanist-systemuicontroller")
+                .to("com.google.accompanist", "accompanist-systemuicontroller")
+                .versionRef("accompanistVersion")
+            alias("accompanist-navigation-material")
+                .to("com.google.accompanist", "accompanist-navigation-material")
+                .versionRef("accompanistVersion")
+            alias("accompanist-navigation-animation")
+                .to("com.google.accompanist", "accompanist-navigation-animation")
+                .versionRef("accompanistVersion")
+
+            alias("koin-core")
+                .to("io.insert-koin", "koin-core").versionRef("koinVersion")
+            alias("koin-android")
+                .to("io.insert-koin", "koin-android").versionRef("koinVersion")
+            alias("koin-androidx-compose")
+                .to("io.insert-koin", "koin-androidx-compose").versionRef("koinVersion")
+
+            alias("google.maps.libraries")
+                .to("com.google.android.libraries.maps", "maps").version("3.1.0-beta")
+            alias("google.maps.android")
+                .to("com.google.maps.android", "maps-v3-ktx").version("3.2.0")
+
+//            alias("google.maps.libraries")
+//                .to("com.google.android.libraries.maps", "maps").version("3.1.0-beta")
+
+
+//            alias("google.maps.android.v3")
+//                .to("com.google.maps.android", "maps-v3-ktx").version("3.2.0")
+//            alias("google.maps.android.maps")
+//                .to("com.google.maps.android", "maps-utils-v3-ktx").version("3.2.0")
+
+//            alias("google.android.libraries")
+//                .to("com.google.android.libraries.maps", "maps").version("3.2.0")
+//            alias("google.maps.android")
+//                .to("com.google.maps.android", "maps-utils-v3-ktx").version("3.2.0")
+
+
+//            const val navigation = "androidx.navigation:navigation-compose:2.4.0-alpha04"
+
+
             bundle("androidX", listOf("androidx-core"))
             bundle(
                 "compose",
                 listOf("compose-ui", "compose-material", "compose-ui-tooling-preview")
+            )
+            bundle(
+                "koin",
+                listOf("koin-core", "koin-android", "koin-androidx-compose")
             )
         }
     }
