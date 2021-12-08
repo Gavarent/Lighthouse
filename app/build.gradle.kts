@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.types.typesApproximation.approximateCapturedTypes
-import java.io.FileInputStream
-import java.nio.file.Paths
 import java.util.*
 
 plugins {
@@ -46,7 +43,8 @@ android {
             }
             debug {
                 isDebuggable = true
-                manifestPlaceholders["androidGeoApiKey"] = appProperties.getProperty("ANDROID_GEO_API_KEY" , "")
+                manifestPlaceholders["androidGeoApiKey"] =
+                    appProperties.getProperty("ANDROID_GEO_API_KEY", "")
 
             }
         }
@@ -85,10 +83,8 @@ android {
 dependencies {
     implementation(libs.bundles.androidX)
     implementation(libs.bundles.compose)
-
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.activity.compose)
-    implementation("androidx.compose.material3:material3:1.0.0-alpha01")
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.navigation.material)
     implementation(libs.accompanist.navigation.animation)
@@ -96,15 +92,8 @@ dependencies {
     implementation(libs.bundles.koin)
 //    implementation(libs.google.maps.android)
 
-implementation("com.android.volley:volley:1.2.1")
-    implementation ("com.google.maps.android:maps-ktx:3.2.1")
-    implementation ("com.google.maps.android:maps-utils-v3-ktx:3.2.1")
-
-    // It is recommended to also include the latest Maps SDK and/or Utility Library versions
-    // as well to ensure that you have the latest features and bug fixes.
-    implementation ("com.google.android.libraries.maps:maps:3.1.0-beta")
-    implementation  ("com.google.maps.android:android-maps-utils-v3:2.3.0")
-
+    implementation(libs.bundles.google.maps)
+    implementation("com.android.volley:volley:1.2.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
