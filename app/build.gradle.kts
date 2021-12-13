@@ -88,9 +88,11 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.navigation.material)
     implementation(libs.accompanist.navigation.animation)
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.coroutines.test)
 
     implementation(libs.bundles.koin)
-//    implementation(libs.google.maps.android)
 
     implementation(libs.bundles.google.maps)
     implementation("com.android.volley:volley:1.2.1")

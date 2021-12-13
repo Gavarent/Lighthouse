@@ -3,9 +3,9 @@ package ru.gavarent.lighthouse.screen
 import android.os.Bundle
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.ktx.awaitMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getComposeViewModelOwner
 import org.koin.androidx.compose.getViewModel
@@ -43,7 +44,6 @@ fun MapScreen(navigateUp: () -> Boolean = { true }) {
 
                     val pickUp = LatLng(-35.016, 143.321)
                     val destination = LatLng(-32.491, 147.309)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(destination, 6f))
                     val markerOptions = MarkerOptions()
                         .title("Sydney Opera House")
                         .position(pickUp)
@@ -64,6 +64,20 @@ fun MapScreen(navigateUp: () -> Boolean = { true }) {
                             destination
                         )
                     )
+
+                    viewModel.seaMarksFlow.value.forEach {
+                        map.addMarker(
+                            MarkerOptions()
+                                .title(it.title.toString())
+                                .position(LatLng(it.latitude, it.longitude))
+                        )
+                    }
+                    map.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(60.0232, 29.3231), 6f
+                        )
+                    )
+
                 }
             }
         }

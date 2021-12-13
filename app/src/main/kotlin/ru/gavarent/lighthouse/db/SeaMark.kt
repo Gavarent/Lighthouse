@@ -37,6 +37,7 @@ class SeaMarkTable {
 }
 
 enum class SeaMarkType {
+
     VESSEL,
     HOUSE,
     LANDMARK
