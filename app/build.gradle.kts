@@ -1,8 +1,10 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 import java.util.*
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt") version "1.6.0"
 }
 
 val appProperties = Properties().apply {
@@ -22,6 +24,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true"
+                )
+            }
         }
     }
 
@@ -96,6 +107,11 @@ dependencies {
 
     implementation(libs.bundles.google.maps)
     implementation("com.android.volley:volley:1.2.1")
+
+
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
