@@ -1,5 +1,6 @@
 [versions]
-compose = "1.0.1"
+kotlinVersion = "1.5.31"
+compose = "1.0.5"
 accompanistVersion = "0.21.3-beta"
 koinVersion = "3.1.4"
 coroutines = "1.5.2"
@@ -31,9 +32,9 @@ google-maps-android-util = { module = "com.google.maps.android:android-maps-util
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion"}
-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion"}
-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion"}
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 
 [bundles]
 androidX = ["androidx-core", "androidx.compose.material3"]
@@ -43,3 +44,4 @@ google-maps = ["google-maps-android", "google-maps-android-util"]
 #google-maps = ["google-maps-libraries", "google-maps-android-v3", "google-maps-android", "google-maps-android-util"]
 
 [plugins]
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref="kotlinVersion" }

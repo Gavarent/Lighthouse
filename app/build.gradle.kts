@@ -4,7 +4,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt") version "1.6.0"
+    alias(libs.plugins.kapt)
 }
 
 val appProperties = Properties().apply {
