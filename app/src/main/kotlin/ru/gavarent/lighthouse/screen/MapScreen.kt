@@ -68,7 +68,7 @@ fun MapScreen(navigateUp: () -> Boolean = { true }) {
                     viewModel.seaMarksFlow.value.forEach {
                         map.addMarker(
                             MarkerOptions()
-                                .title(it.title.toString())
+                                .title(it.toString())
                                 .position(LatLng(it.latitude, it.longitude))
                         )
                     }

@@ -9,6 +9,14 @@ interface SeaMarkDao {
     @Query("SELECT * FROM seaMark")
     suspend fun getAll(): List<SeaMark>
 
+    @Insert
+    fun insert(seaMark: SeaMark) : Long
+}
+
+@Dao
+interface SeaMarkTranslationDao {
+    @Insert
+    suspend fun insert(seaMarkTranslation: SeaMarkTranslation) : Long
 }
 
 @Dao
@@ -24,4 +32,16 @@ interface SeaDao {
 interface SeaTranslationDao {
     @Insert
     suspend fun insert(seaTranslation: SeaTranslation): Long
+}
+
+@Dao
+interface CountryDao {
+    @Insert
+    suspend fun insert(country: Country): Long
+}
+
+@Dao
+interface CountryTranslationDao {
+    @Insert
+    suspend fun insert(countryTranslation: CountryTranslation): Long
 }

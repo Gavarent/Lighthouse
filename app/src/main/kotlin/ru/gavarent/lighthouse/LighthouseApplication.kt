@@ -32,7 +32,7 @@ class LighthouseApplication : Application() {
                     applicationContext,
                     AppDatabase::class.java, "prepopulate.db"
                 )
-                    .createFromAsset("database/prepopulate.db")
+                         .createFromAsset("database/prepopulate.db")
                     .build()
             }
             viewModel { MapViewModel(get()) }
