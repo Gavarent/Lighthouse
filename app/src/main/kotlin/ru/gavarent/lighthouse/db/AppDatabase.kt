@@ -12,4 +12,7 @@ import androidx.room.RoomDatabase
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun seaMarkDao(): SeaMarkDao
+    abstract fun seaDao(): SeaDao
+    abstract fun seaTranslationDao(): SeaTranslationDao
+
 }

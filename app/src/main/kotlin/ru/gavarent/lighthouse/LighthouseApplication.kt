@@ -9,7 +9,6 @@ import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import ru.gavarent.lighthouse.db.AppDatabase
-import ru.gavarent.lighthouse.db.SeaMarkTable
 import ru.gavarent.lighthouse.screen.MapViewModel
 
 class LighthouseApplication : Application() {
@@ -28,11 +27,10 @@ class LighthouseApplication : Application() {
             // single<HelloRepository> { HelloRepositoryImpl() }
 
             //  factory { MySimplePresenter(get()) }
-            single { SeaMarkTable() }
             single {
-                val db = Room.databaseBuilder(
+                Room.databaseBuilder(
                     applicationContext,
-                    AppDatabase::class.java, "lighthouse-db"
+                    AppDatabase::class.java, "prepopulate.db"
                 )
                     .createFromAsset("database/prepopulate.db")
                     .build()

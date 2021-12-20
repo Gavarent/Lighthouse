@@ -5,19 +5,19 @@ import androidx.room.*
 
 @Entity
 data class SeaMark(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Long = 0,
     val title: Int,
     val navigationType: SeaMarkType = SeaMarkType.UNDEFINED,
     val latitude: Double,
     val longitude: Double,
     val country: String,
-    val seaKey: Int
+    val seaKey: Long
 )
 
 @Entity
 data class SeaMarkTranslation(
-    @PrimaryKey val uid: Int,
-    val seaMarkOwnerId: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Long = 0,
+    val seaMarkOwnerId: Long,
     @ColumnInfo(name = "title") val title: String
 
 )
@@ -33,14 +33,14 @@ data class SeaMarkAndTranslation(
 
 @Entity
 data class Sea(
-    @PrimaryKey
-    val uid: Int,
+    @PrimaryKey(autoGenerate = true)
+    var uid: Long = 0,
 )
 
 @Entity
 data class SeaTranslation(
-    @PrimaryKey val uid: Int,
-    val seaOwnerId: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Long = 0,
+    val seaOwnerId: Long,
     @ColumnInfo(name = "name") val title: String
 )
 
@@ -56,12 +56,13 @@ data class SeaAndTranslation(
 
 @Entity
 data class Country(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Long = 0,
 )
 
 @Entity
 data class CountryTranslation(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Long = 0,
+    val countryOwnerId: Long,
     @ColumnInfo(name = "name") val title: String
 )
 
