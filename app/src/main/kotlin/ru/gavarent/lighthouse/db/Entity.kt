@@ -22,14 +22,14 @@ data class SeaMarkTranslation(
 
 )
 
-data class SeaMarkAndTranslation(
-    @Embedded val seaMark: SeaMark,
-    @Relation(
-        parentColumn = "uid",
-        entityColumn = "seaMarkOwnerId"
-    )
-    val seaMarkTranslation: SeaMarkTranslation
-)
+//data class SeaMarkAndTranslation(
+//    @Embedded val seaMark: SeaMark,
+//    @Relation(
+//        parentColumn = "uid",
+//        entityColumn = "seaMarkOwnerId"
+//    )
+//    val seaMarkTranslation: SeaMarkTranslation
+//)
 
 @Entity
 data class Sea(
@@ -67,10 +67,10 @@ data class CountryTranslation(
     @ColumnInfo(name = "name") val title: String
 )
 
-enum class SeaMarkType {
-    UNDEFINED,
-    VESSEL,
-    HOUSE,
-    LANDMARK
+enum class SeaMarkType(val mapIcon: Int) {
+    UNDEFINED(android.R.drawable.ic_dialog_email),
+    VESSEL(android.R.drawable.ic_lock_idle_alarm),
+    HOUSE(android.R.drawable.ic_menu_upload),
+    LANDMARK(android.R.drawable.ic_lock_idle_lock);
 }
 

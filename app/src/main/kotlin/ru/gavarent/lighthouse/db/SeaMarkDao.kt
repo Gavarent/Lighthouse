@@ -9,14 +9,21 @@ interface SeaMarkDao {
     @Query("SELECT * FROM seaMark")
     suspend fun getAll(): List<SeaMark>
 
+    @Query(
+        "SELECT * FROM seaMark JOIN seamarkTranslation " +
+                "ON seaMark.uid = seamarkTranslation.seaMarkOwnerId " +
+                "WHERE seamarkTranslation.languageCode IN (:languageCode)"
+    )
+    fun getAllByLocale(languageCode: List<String>): Map<SeaMark, List<SeaMarkTranslation>>
+
     @Insert
-    fun insert(seaMark: SeaMark) : Long
+    fun insert(seaMark: SeaMark): Long
 }
 
 @Dao
 interface SeaMarkTranslationDao {
     @Insert
-    suspend fun insert(seaMarkTranslation: SeaMarkTranslation) : Long
+    suspend fun insert(seaMarkTranslation: SeaMarkTranslation): Long
 }
 
 @Dao
@@ -25,7 +32,7 @@ interface SeaDao {
     suspend fun getAll(): List<Sea>
 
     @Insert
-    suspend fun insert(sea: Sea) : Long
+    suspend fun insert(sea: Sea): Long
 }
 
 @Dao

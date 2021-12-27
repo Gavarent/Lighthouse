@@ -1,6 +1,8 @@
 package ru.gavarent.lighthouse
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,11 +30,17 @@ internal fun AppNavigation(
     ) {
         composable(Screen.Welcome.route) {
             Surface(modifier = modifier) {
-                Text(text = "Welcome Screen")
+                Column {
+                    Text(text = "Welcome Screen")
+
+                    Button(onClick = { navController.navigate(Screen.Map.route) }) {
+                        Text(text = "to MAP")
+                    }
+                }
             }
         }
         composable(Screen.Map.route) {
-            MapScreen(navController::navigateUp)
+            MapScreen(navController)
         }
 
     }

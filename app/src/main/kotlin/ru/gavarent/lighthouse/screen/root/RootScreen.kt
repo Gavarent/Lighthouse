@@ -17,6 +17,7 @@ import ru.gavarent.lighthouse.ui.theme.AppTheme
 internal sealed class Screen(val route: String) {
     object Welcome : Screen("welcome")
     object Map : Screen("map")
+    object SeaTypeDescription : Screen("seaTypeDescription/{?}")
 }
 
 

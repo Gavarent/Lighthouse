@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 import java.util.*
 
 plugins {
@@ -107,6 +106,8 @@ dependencies {
 
     implementation(libs.bundles.google.maps)
     implementation("com.android.volley:volley:1.2.1")
+//    implementation(libs.androidx.appcompat)
+//    implementation(libs.iconics.core)
 
 
     implementation(libs.room.runtime)

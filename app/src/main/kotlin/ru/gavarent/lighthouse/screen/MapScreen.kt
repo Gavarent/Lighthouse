@@ -3,10 +3,7 @@ package ru.gavarent.lighthouse.screen
 import android.os.Bundle
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -14,75 +11,67 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavHostController
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.ktx.awaitMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getComposeViewModelOwner
 import org.koin.androidx.compose.getViewModel
 import ru.gavarent.lighthouse.R
+import ru.gavarent.lighthouse.screen.map.MapMarker
 import ru.gavarent.lighthouse.ui.theme.AppTheme
 
+
 @Composable
-fun MapScreen(navigateUp: () -> Boolean = { true }) {
+fun MapScreen(navigate: NavHostController? = null ) {
     val composeViewModelOwner = getComposeViewModelOwner()
     val viewModel = getViewModel<MapViewModel>()
     androidx.compose.material.Surface(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
+
             val mapView = rememberMapViewWithLifecycle()
-            AndroidView({ mapView }) {
+            val seaMarks = viewModel.seaMarksFlow.collectAsState(initial = listOf())
 
-                CoroutineScope(Dispatchers.Main).launch {
-                    val map = mapView.awaitMap()
-                    map.uiSettings.isZoomControlsEnabled = true
+            CustomMap(mapView, seaMarks, navigate)
 
-                    val pickUp = LatLng(-35.016, 143.321)
-                    val destination = LatLng(-32.491, 147.309)
-                    val markerOptions = MarkerOptions()
-                        .title("Sydney Opera House")
-                        .position(pickUp)
-                    map.addMarker(markerOptions)
-
-                    val markerOptionsDestination = MarkerOptions()
-                        .title("Restaurant Hubert")
-                        .position(destination)
-                    map.addMarker(markerOptionsDestination)
-
-                    map.addPolyline(
-                        PolylineOptions().add(
-                            pickUp,
-                            LatLng(-34.747, 145.592),
-                            LatLng(-34.364, 147.891),
-                            LatLng(-33.501, 150.217),
-                            LatLng(-32.306, 149.248),
-                            destination
-                        )
-                    )
-
-                    viewModel.seaMarksFlow.value.forEach {
-                        map.addMarker(
-                            MarkerOptions()
-                                .title(it.toString())
-                                .position(LatLng(it.latitude, it.longitude))
-                        )
-                    }
-                    map.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(60.0232, 29.3231), 6f
-                        )
-                    )
-
-                }
-            }
         }
     }
 
+}
+
+@Composable
+fun CustomMap(mapView: MapView, seaMarks: State<List<MapMarker>>, navigate: NavHostController?) {
+
+    AndroidView({ mapView }) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val map = mapView.awaitMap()
+            map.uiSettings.isZoomControlsEnabled = true
+
+          //  map.isMyLocationEnabled = true
+
+            seaMarks.value.forEach {
+                val marker = map.addMarker(it.markerOptions)
+                marker?.tag = it.id
+            }
+
+            map.setOnMarkerClickListener(GoogleMap.OnMarkerClickListener {
+                navigate?.navigate("seaTypeDescription/${it.tag}")
+                true
+            })
+            map.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(60.0232, 29.3231), 6f
+                )
+            )
+
+        }
+    }
 }
 
 @Composable
